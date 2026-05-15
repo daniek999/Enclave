@@ -1,0 +1,119 @@
+/* --- @custom --- */
+:root {
+  --typography-core: "Space Mono", monospace;
+
+  --fore-neutral: #f8f9fa;
+  --fore-partial: #898989;
+  --fore-primary: #61AFEF;
+  --fore-secondary: #C678DD;
+  --fore-success: #62B87F;
+  --fore-warning: #E5C07B;
+  --fore-danger: #E06C75;
+
+  --back-depth: #0a0a0a;
+  --back-surface: #2C2C2C;
+}
+
+/* init */
+* {
+  font-family: var(--typography-core);
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+/* background */
+.bg-depth {
+  background: var(--back-depth);
+}
+
+.bg-surface {
+  background: var(--back-surface);
+}
+
+/* foreground */
+.fg-neutral {
+  color: var(--fore-neutral);
+}
+
+.fg-partial {
+  color: var(--fore-partial);
+}
+
+.fg-primary {
+  color: var(--fore-primary);
+}
+
+.fg-secondary {
+  color: var(--fore-secondary);
+}
+
+.fg-gradient {
+  background: #f8f9fa;
+  background: -webkit-linear-gradient(to right, #b462ff, #18b6ff, #b462ff);
+  background: linear-gradient(to right, #b462ff, #18b6ff, #b462ff);
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: fg-gradiant 2000ms linear infinite;
+}
+
+/* link */
+.lk-neutral {
+  color: var(--fore-neutral);
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+}
+
+.lk-partial {
+  color: var(--fore-partial);
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+}
+
+.lk-primary {
+  color: var(--fore-primary);
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+}
+
+.lk-neutral:hover,
+.lk-partial:hover,
+.lk-primary:hover {
+  opacity: 0.5;
+}
+
+/* --- @keyframes --- */
+@keyframes fg-gradiant {
+  0% {
+    background-position: 200% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- @media --- */
+/* desktop */
+@media (min-width: 768px) {
+  .tag-section {
+    border-left: 1px solid var(--back-surface);
+  }
+
+  .post-section {
+    border-left: 1px solid var(--back-surface);
+    border-right: 1px solid var(--back-surface);
+  }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .tag-section {
+    border-left: 0px solid transparent;
+  }
+
+  .post-section {
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+  }
+}

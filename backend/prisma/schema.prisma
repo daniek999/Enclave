@@ -1,0 +1,104 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// Enumeraciones
+enum UserRole {
+  user
+  mod
+  admin
+}
+
+enum UserStatus {
+  active
+  suspended
+  banned
+}
+
+enum PostStatus {
+  active
+  archived
+  removed
+}
+
+enum CommentStatus {
+  active
+  removed
+}
+
+enum TagStatus {
+  active
+  inactive
+}
+
+// Tablas
+model User {
+  id       Int        @id @default(autoincrement())
+  username String     @unique @db.VarChar(50)
+  password String     @db.VarChar(255)
+  role     UserRole   @default(user)
+  status   UserStatus @default(active)
+
+  posts    Post[]
+  comments Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id      Int        @id @default(autoincrement())
+  title   String     @db.VarChar(100)
+  content String     @db.Text
+  status  PostStatus @default(active)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  tagId Int
+  tag   Tag @relation(fields: [tagId], references: [id])
+
+  comments Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([tagId])
+}
+
+model Comment {
+  id      Int           @id @default(autoincrement())
+  content String        @db.Text
+  status  CommentStatus @default(active)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([postId])
+}
+
+model Tag {
+  id     Int       @id @default(autoincrement())
+  name   String    @unique @db.VarChar(100)
+  status TagStatus @default(active)
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
