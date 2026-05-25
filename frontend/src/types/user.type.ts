@@ -1,10 +1,11 @@
 // types/user.type.ts
+import type { Count, Pagination, Query } from "./common.type";
 
 // Body Responses
 export interface UserItem {
   id: number;
   username: string;
-  role: "user" | "mod" | "admin"; // Tipado más estricto si manejas roles fijos
+  role: "user" | "mod" | "admin";
   status: "active" | "suspended" | "banned";
   createdAt: string;
   updatedAt: string;
@@ -25,7 +26,7 @@ export interface UserUpdate {
   status?: "active" | "suspended" | "banned";
   role?: "user" | "mod" | "admin";
 }
-export interface UserCount {
+export interface UserCount extends Count {
   active: number;
   suspended: number;
   banned: number;
@@ -33,18 +34,11 @@ export interface UserCount {
   mod: number;
   admin: number;
 }
-export interface UserPagination {
-  page: number;
-  limit: number;
-  totalItems: number;
-  totalPages: number;
-}
-export interface UserSearch {
-  limit: number;
-  page: number;
+export interface UserSearch extends Query {
   role?: "user" | "mod" | "admin";
   status?: "active" | "suspended" | "banned";
 }
+export type UserPagination = Pagination;
 
 // Type Responses
 export interface UserListResponse {

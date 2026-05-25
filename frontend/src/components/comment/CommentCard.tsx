@@ -1,21 +1,36 @@
+import { useAuthStore } from "../../stores/auth.store";
 import type { CommentItem } from "../../types/comment.type";
 
-interface Props {
-  comment: CommentItem;
-}
+export function CommentCard({ comment }: { comment: CommentItem }) {
+  const { user } = useAuthStore();
 
-export function CommentCard({ comment }: Props) {
   return (
-    <article className="border-secondary rounded-0">
+    <div className="d-flex flex-column gap-2">
       <div className="d-flex flex-column">
-        <div className="d-flex justify-content-between align-items-center">
-          <p className="mb-0">@{comment.user.username}</p>
+        <p className="mb-0 small fw-bold fg-primary">
+          @{comment.user.username}
+        </p>
+        <div className="d-flex flex-row gap-2">
           <p className="mb-0 small fg-partial">
-            {new Date(comment.createdAt).toLocaleString()}
+            Publicado el {new Date(comment.createdAt).toLocaleString()}
           </p>
+          {(user?.id === comment.user.id ||
+            user?.role === "admin" ||
+            user?.role === "mod") && (
+            <>
+              <a href="#" className="lk-danger small">
+                [Eliminar]
+              </a>
+              {user?.id === comment.user.id && (
+                <a href="#" className="lk-warning  small">
+                  [Editar]
+                </a>
+              )}
+            </>
+          )}
         </div>
-        <p className="mb-0 fg-partial">{comment.content}</p>
       </div>
-    </article>
+      <p className="mb-0">{comment.content}</p>
+    </div>
   );
 }

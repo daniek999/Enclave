@@ -1,11 +1,11 @@
 /* --- @custom --- */
 :root {
-  --typography-core: "Inconsolata", monospace;
+  --typography-core: "PT Sans", sans-serif;
 
   --fore-neutral: #E4F0F6;
   --fore-partial: #7b7a7b;
-  --fore-primary: #61AFEF;
-  --fore-secondary: #C678DD;
+  --fore-primary: #c38fff;
+  --fore-secondary: #03dac6;
   --fore-success: #62B87F;
   --fore-warning: #E5C07B;
   --fore-danger: #E06C75;
@@ -80,7 +80,7 @@ body {
 /* link */
 .lk-neutral {
   outline: none;
-  color: var(--fore-partial);
+  color: var(--fore-neutral);
   width: fit-content;
   text-decoration: none;
   transition: 200ms ease-in-out;
@@ -89,7 +89,7 @@ body {
 }
 
 .lk-primary {
-  color: var(--fore-partial);
+  color: var(--fore-primary);
   width: fit-content;
   text-decoration: none;
   transition: 250ms ease-in-out;
@@ -97,14 +97,40 @@ body {
   --hover-color: var(--fore-primary);
 }
 
-.lk-neutral:hover,
-.lk-primary:hover {
-  color: var(--hover-color);
+.lk-secondary {
+  color: var(--fore-secondary);
+  width: fit-content;
+  text-decoration: none;
+  transition: 250ms ease-in-out;
+  --active-color: var(--fore-secondary);
+  --hover-color: var(--fore-secondary);
 }
 
-.active {
-  color: var(--active-color);
-  padding-left: 2rem;
+.lk-warning {
+  color: var(--fore-warning);
+  width: fit-content;
+  text-decoration: none;
+  transition: 250ms ease-in-out;
+  --active-color: var(--fore-warning);
+  --hover-color: var(--fore-warning);
+}
+
+.lk-danger {
+  color: var(--fore-danger);
+  width: fit-content;
+  text-decoration: none;
+  transition: 250ms ease-in-out;
+  --active-color: var(--fore-danger);
+  --hover-color: var(--fore-danger);
+}
+
+.lk-neutral:hover,
+.lk-primary:hover,
+.lk-secondary:hover,
+.lk-warning:hover,
+.lk-danger:hover {
+  opacity: 0.6;
+  color: var(--hover-color);
 }
 
 /* rules */

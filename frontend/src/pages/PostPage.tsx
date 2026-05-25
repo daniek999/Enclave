@@ -62,23 +62,23 @@ export function PostPage() {
     );
   }
   return (
-    <section className="container d-flex flex-column gap-4 p-4">
-      <hr className="my-0 hr-surface" />
-      <div className="d-flex flex-column gap-4 align-items-start">
-        <div className="d-flex flex-column gap-1">
-          <h3 className="fw-bold mb-0">{post.title}</h3>
-          <p className="fg-partial mb-0 small">
-            @{post.user.username}
-            <span className="mx-2">|</span>
-            {new Date(post.createdAt).toLocaleString()}
-            <span className="mx-2">|</span>
-            {post.tag.name}
-          </p>
-        </div>
+    <section className="container d-flex flex-column gap-4">
+      {/* Posts */}
+      <div className="d-flex flex-column gap-2">
+        <h5 className="mb-0 fw-bold">{post.title}</h5>
         <p className="mb-0">{post.content}</p>
+        <p className="fg-partial mb-0 small">
+          @{post.user.username}
+          <span className="mx-2">|</span>
+          {new Date(post.createdAt).toLocaleString()}
+          <span className="mx-2">|</span>
+          {post.tag.name}
+        </p>
       </div>
+      {/* Separator */}
       <hr className="my-0 hr-surface" />
-      <div className="d-flex flex-column gap-4">
+      {/* Comments */}
+      <div className="d-flex flex-column gap-2">
         <div className="d-flex justify-content-between align-items-center">
           <h5 className="fw-bold mb-0">Comentarios</h5>
           <span className="fg-partial">{comments.length}</span>

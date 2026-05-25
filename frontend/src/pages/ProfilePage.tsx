@@ -37,14 +37,9 @@ export default function ProfilePage() {
   return (
     <section className="d-flex flex-column gap-4">
       {/* Title */}
-      <div className="d-flex flex-column gap-0">
-        <h3 className="fw-bold mb-0">
-          {user?.username || "Cargando usuario..."}
-        </h3>
-        <p className="fg-partial mb-0">
-          Datos relacionado en torno a tu cuenta de manera general.
-        </p>
-      </div>
+      <h5 className="fw-bold mb-0">
+        {user?.username || "Cargando usuario..."}
+      </h5>
       {/* Separator */}
       <hr className="my-0 hr-surface" />
       {/* Content */}
@@ -54,7 +49,7 @@ export default function ProfilePage() {
         <div className="d-flex flex-column gap-4">
           {/* Usuario{} */}
           <div className="d-flex flex-column gap-2">
-            <h5 className="mb-0 fw-semibold">Usuario</h5>
+            <p className="mb-0 fw-semibold">Usuario</p>
             <div className="d-flex flex-column">
               <div className="row fg-partial">
                 <p className="col-md-1 mb-0 fg-primary">Usuario</p>
@@ -88,11 +83,11 @@ export default function ProfilePage() {
           </div>
           {/* Posts[] */}
           <div className="d-flex flex-column gap-2">
-            <h5 className="mb-0 fw-semibold">
+            <p className="mb-0 fw-semibold">
               Publicaciones [{user?.posts?.length || 0}]
-            </h5>
+            </p>
             {user?.posts && user.posts.length > 0 ? (
-              <div className="d-flex flex-column gap-2">
+              <div className="d-flex flex-column">
                 {user.posts.map((post) => (
                   <div key={post.id} className="row fg-partial">
                     <p className="col-md-1 mb-0 fg-primary">{post.id}</p>
@@ -109,11 +104,11 @@ export default function ProfilePage() {
           </div>
           {/* Comments[] */}
           <div className="d-flex flex-column gap-2">
-            <h5 className="mb-0 fw-semibold">
+            <p className="mb-0 fw-semibold">
               Comentarios [{user?.comments?.length || 0}]
-            </h5>
+            </p>
             {user?.comments && user.comments.length > 0 ? (
-              <div className="d-flex flex-column gap-2">
+              <div className="d-flex flex-column">
                 {user.comments.map((comment) => (
                   <div key={comment.id} className="row fg-partial">
                     <p className="col-md-1 mb-0 fg-primary">{comment.id}</p>

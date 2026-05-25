@@ -99,12 +99,7 @@ export function StaffPage() {
   return (
     <section className="d-flex flex-column gap-4">
       {/* Title */}
-      <div className="d-flex flex-column gap-0">
-        <h3 className="fw-bold mb-0">Panel De Tablas</h3>
-        <p className="fg-partial mb-0">
-          Gestiona el sistema de manera general como administrador.
-        </p>
-      </div>
+      <h5 className="fw-bold mb-0">Panel De Tablas</h5>
       {/* Separator */}
       <hr className="my-0 hr-surface" />
       {/* Tables */}

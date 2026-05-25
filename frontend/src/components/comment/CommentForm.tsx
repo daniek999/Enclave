@@ -27,7 +27,7 @@ export function CommentForm({ postId }: { postId: number }) {
 
   return (
     <form
-      className="d-flex flex-column gap-3"
+      className="d-flex flex-column gap-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <textarea

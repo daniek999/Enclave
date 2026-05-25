@@ -11,14 +11,18 @@ import { useEffect } from "react";
 import { PostPage } from "./pages/PostPage";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { StaffPage } from "./pages/admin/StaffPage";
+/* eslint-disable react-hooks/exhaustive-deps */
 
 export default function App() {
-  const loadAuth = useAuthStore((i) => i.loadAuth);
+  // Hooks
+  const { loadAuth } = useAuthStore();
 
+  // Functions
   useEffect(() => {
     loadAuth();
-  });
+  }, []);
 
+  // Routes
   return (
     <BrowserRouter>
       <Routes>
