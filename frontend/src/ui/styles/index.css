@@ -1,9 +1,9 @@
 /* --- @custom --- */
 :root {
-  --typography-core: "Space Mono", monospace;
+  --typography-core: "Inconsolata", monospace;
 
-  --fore-neutral: #f8f9fa;
-  --fore-partial: #898989;
+  --fore-neutral: #E4F0F6;
+  --fore-partial: #7b7a7b;
   --fore-primary: #61AFEF;
   --fore-secondary: #C678DD;
   --fore-success: #62B87F;
@@ -21,6 +21,13 @@
   scrollbar-width: none;
 }
 
+body {
+  background-color: var(--back-depth);
+  background-image: linear-gradient(var(--back-surface) 1.2000000000000002px, transparent 1.2000000000000002px), linear-gradient(to right, var(--back-surface) 1.2000000000000002px, var(--back-depth) 1.2000000000000002px);
+  background-size: 48px 48px;
+  color: var(--fore-neutral);
+}
+
 /* background */
 .bg-depth {
   background: var(--back-depth);
@@ -28,6 +35,10 @@
 
 .bg-surface {
   background: var(--back-surface);
+}
+
+.bg-primary-subtle {
+  background: rgb(from var(--fore-primary) r g b / 15%) !important;
 }
 
 /* foreground */
@@ -47,39 +58,61 @@
   color: var(--fore-secondary);
 }
 
+.fg-surface {
+  color: var(--back-surface);
+}
+
 .fg-gradient {
   background: #f8f9fa;
-  background: -webkit-linear-gradient(to right, #b462ff, #18b6ff, #b462ff);
-  background: linear-gradient(to right, #b462ff, #18b6ff, #b462ff);
+  background: -webkit-linear-gradient(to right, #f5227a, var(--fore-primary), #f5227a);
+  background: linear-gradient(to right, #f5227a, var(--fore-primary), #f5227a);
   background-clip: text;
   color: transparent;
   background-size: 200% auto;
   animation: fg-gradiant 2000ms linear infinite;
 }
 
-/* link */
-.lk-neutral {
-  color: var(--fore-neutral);
-  text-decoration: none;
-  transition: 200ms ease-in-out;
+/* border */
+.bdr-surface {
+  border: 1px solid var(--back-surface);
 }
 
-.lk-partial {
+/* link */
+.lk-neutral {
+  outline: none;
   color: var(--fore-partial);
+  width: fit-content;
   text-decoration: none;
   transition: 200ms ease-in-out;
+  --active-color: var(--fore-neutral);
+  --hover-color: var(--fore-neutral);
 }
 
 .lk-primary {
-  color: var(--fore-primary);
+  color: var(--fore-partial);
+  width: fit-content;
   text-decoration: none;
-  transition: 200ms ease-in-out;
+  transition: 250ms ease-in-out;
+  --active-color: var(--fore-primary);
+  --hover-color: var(--fore-primary);
 }
 
 .lk-neutral:hover,
-.lk-partial:hover,
 .lk-primary:hover {
-  opacity: 0.5;
+  color: var(--hover-color);
+}
+
+.active {
+  color: var(--active-color);
+  padding-left: 2rem;
+}
+
+/* rules */
+.hr-surface {
+  color: var(--back-surface);
+  border: 0;
+  border-top: 1px solid;
+  opacity: 100;
 }
 
 /* --- @keyframes --- */

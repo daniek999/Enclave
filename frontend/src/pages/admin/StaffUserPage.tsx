@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import type { UserItem } from "../../types/user.type";
 import { userApi } from "../../apis/user.api";
 
-export default function AdminUsersPage() {
+export default function StaffUserPage() {
   // Hooks
-  const { listUsers } = userApi();
+  const { listUsers, findSelfById, findUserById, updateUser } = userApi();
 
   // States
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -16,7 +16,7 @@ export default function AdminUsersPage() {
   const [totalPages, setTotalPages] = useState(1);
 
   // Handlers
-  const fetchUsers = async () => {
+  const handleList = async () => {
     try {
       setLoading(true);
       const response = await listUsers({ limit, page });
@@ -28,10 +28,11 @@ export default function AdminUsersPage() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchUsers();
-  });
+    handleList();
+  }, []);
 
   // Pages
   return (
@@ -52,7 +53,10 @@ export default function AdminUsersPage() {
             <td>{user.username}</td>
             <td>{user.role}</td>
             <td>{user.status}</td>
-            <td>botones/modals</td>
+            <td className="d-flex flex-row gap-3">
+              <button className="btn btn-primary btn-sm">Actualizar</button>
+              <button className="btn btn-danger btn-sm">Eliminar</button>
+            </td>
           </tr>
         ))}
       </tbody>

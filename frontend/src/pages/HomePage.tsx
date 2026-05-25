@@ -19,9 +19,12 @@ export default function HomePage() {
   const { listPosts } = postApi();
 
   // States
+  /* Items */
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [tags, setTags] = useState<TagItem[]>([]);
+  /* State */
   const [loading, setLoading] = useState(true);
+  /* Meta */
   const [count, setCount] = useState<PostCount>({
     total: 0,
     active: 0,
@@ -34,6 +37,7 @@ export default function HomePage() {
     totalItems: 0,
     totalPages: 0,
   });
+  /* Query */
   const [search, setSearch] = useState<PostQuery>({
     limit: 10,
     page: 1,
@@ -46,10 +50,10 @@ export default function HomePage() {
   async function fetchPosts() {
     try {
       setLoading(true);
-      const response = await listPosts(search);
-      setPosts(response.data.items);
-      setCount(response.data.counts);
-      setPagination(response.data.pagination);
+      const res = await listPosts(search);
+      setPosts(res.data.items);
+      setCount(res.data.counts);
+      setPagination(res.data.pagination);
     } catch (error) {
       console.log(error);
     } finally {
@@ -59,8 +63,8 @@ export default function HomePage() {
   async function fetchTags() {
     try {
       setLoading(true);
-      const response = await listTags(1, 20, "active");
-      setTags(response.data.items);
+      const res = await listTags(1, 20, "active");
+      setTags(res.data.items);
     } catch (error) {
       console.log(error);
     } finally {
@@ -75,52 +79,56 @@ export default function HomePage() {
   }, [search]);
 
   // Renders
+  if (loading) {
+    return <Loading />;
+  }
+  if (tags.length == 0) {
+    return <Empty message="No existen etiquetas." />;
+  }
+  if (posts.length == 0) {
+    return <Empty message="No existen publicaciones." />;
+  }
   return (
-    <div className="row h-100">
-      <section className="tag-section col-md-3 p-4">
-        {loading ? (
-          <Loading />
-        ) : tags.length == 0 ? (
-          <Empty message="No existen tags." />
-        ) : (
-          <div className="d-flex flex-column gap-4">
-            <div className="d-flex flex-column gap-1">
-              <p className="mb-0">Categorias</p>
-              {tags.map((tag) => (
-                <p
-                  key={tag.id}
-                  className="small mb-0 fg-primary lk-primary"
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    setSearch((prev) => ({
-                      ...prev,
-                      page: 1,
-                      tagId: tag.id,
-                    }))
-                  }
-                >
-                  /{tag.name}
-                </p>
-              ))}
-            </div>
-            <hr className="my-0" />
-            <div className="d-flex flex-column gap-1">
-              <p className="mb-0">Estadísticas</p>
-              <p className="small mb-0 fg-partial">
-                {count.active} posts activos
-              </p>
-              <p className="small mb-0 fg-partial">
-                {count.archived} posts archivados
-              </p>
-              <p className="small mb-0 fg-partial">
-                {count.removed} posts removidos
-              </p>
-            </div>
-            <hr className="my-0" />
-          </div>
-        )}
+    <div className="row g-0 gap-md-4">
+      <section className="col-md-3 d-flex flex-column">
+        {/* Tags */}
+        <div className="d-flex flex-column gap-1">
+          <p className="mb-0">Categorias</p>
+          {tags.map((tag) => (
+            <p
+              key={tag.id}
+              className="small mb-0 fg-primary lk-primary"
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                setSearch((prev) => ({
+                  ...prev,
+                  page: 1,
+                  tagId: tag.id,
+                }))
+              }
+            >
+              /{tag.name}
+            </p>
+          ))}
+        </div>
+        {/* Separator */}
+        <hr className="my-4 hr-surface" />
+        {/* Statistics */}
+        <div className="d-flex flex-column gap-1">
+          <p className="mb-0">Estadísticas</p>
+          <p className="small mb-0 fg-partial">{count.active} posts activos</p>
+          <p className="small mb-0 fg-partial">
+            {count.archived} posts archivados
+          </p>
+          <p className="small mb-0 fg-partial">
+            {count.removed} posts removidos
+          </p>
+        </div>
+        {/* Separator */}
+        <hr className="my-4 hr-surface" />
       </section>
-      <section className="post-section col-md-9 p-4 d-flex flex-column gap-4">
+      <section className="col-md d-flex flex-column">
+        {/* Panel */}
         <div className="d-flex flex-column flex-md-row justify-content-between gap-3">
           <div className="d-flex flex-row gap-2 w-100 justify-content-center justify-content-md-start">
             <button
@@ -193,18 +201,14 @@ export default function HomePage() {
             </button>
           </div>
         </div>
-        <hr className="my-0" />
-        {loading ? (
-          <Loading />
-        ) : posts.length == 0 ? (
-          <Empty message="No existen publicaciones." />
-        ) : (
-          <div className="d-flex flex-column gap-4">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </div>
-        )}
+        {/* Separator */}
+        <hr className="my-4 hr-surface" />
+        {/* Posts */}
+        <div className="d-flex flex-column gap-4">
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
       </section>
     </div>
   );

@@ -1,4 +1,4 @@
-// components/modals/CreatePostModal.tsx
+// components/post/CreatePostModal.tsx
 import { postApi } from "../../apis/post.api";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ export function CreatePostModal() {
       console.log(error);
     }
   }
-  async function onSubmit(data: PostCreate) {
+  async function onSubmitCreate(data: PostCreate) {
     try {
       await createPost(data);
       reset();
@@ -41,60 +41,66 @@ export function CreatePostModal() {
   // Renders
   return (
     <div className="modal fade" id="createPostModal" tabIndex={-1}>
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content bg-dark text-light">
-          <div className="modal-header border-secondary">
+      <div className="modal-dialog modal-dialog-centered">
+        <form
+          onSubmit={handleSubmit(onSubmitCreate)}
+          className="modal-content gap-4 bg-depth border border-secondary text-light rounded-0 p-4"
+        >
+          <div className="modal-header border-0 p-0">
             <h5 className="modal-title">Crear Publicación</h5>
-
             <button
+              type="button"
               className="btn-close btn-close-white"
               data-bs-dismiss="modal"
             />
           </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="modal-body d-flex flex-column gap-3">
-              {/* @title */}
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Título"
-                {...register("title")}
-              />
-              {/* @tagId */}
-              <select className="form-select" {...register("tagId")}>
-                <option value="">Selecciona un tag</option>
-
-                {tags.map((tag) => {
-                  return (
-                    <option key={tag.id} value={tag.id}>
-                      {tag.name}
-                    </option>
-                  );
-                })}
-              </select>
-              {/* @content */}
-              <textarea
-                rows={8}
-                className="form-control"
-                placeholder="Contenido"
-                {...register("content")}
-              />
-            </div>
-            <div className="modal-footer border-secondary">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button type="submit" className="btn btn-light">
-                Publicar
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="modal-body d-flex flex-column gap-4 p-0">
+            {/* @title */}
+            <input
+              type="text"
+              className="form-control form-control-sm rounded-0"
+              placeholder="Título"
+              {...register("title")}
+            />
+            {/* @tagId */}
+            <select
+              className="form-control form-control-sm rounded-0"
+              {...register("tagId")}
+            >
+              <option value="0">Selecciona un tag</option>
+              {tags.map((tag) => {
+                return (
+                  <option key={tag.id} value={tag.id}>
+                    {tag.name}
+                  </option>
+                );
+              })}
+            </select>
+            {/* @content */}
+            <textarea
+              rows={8}
+              className="form-control form-control-sm rounded-0"
+              placeholder="Contenido"
+              {...register("content")}
+            />
+          </div>
+          <div className="modal-footer border-0 p-0">
+            <button
+              type="button"
+              className="btn btn-outline-danger btn-sm rounded-0"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="btn btn-light btn-sm rounded-0"
+              data-bs-dismiss="modal"
+            >
+              Publicar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -4,11 +4,20 @@
 export interface UserItem {
   id: number;
   username: string;
-  password: string; //Eliminarlo dps en las respuesta API del backend y aca tmb.
-  role: string;
-  status: string;
+  role: "user" | "mod" | "admin"; // Tipado más estricto si manejas roles fijos
+  status: "active" | "suspended" | "banned";
   createdAt: string;
   updatedAt: string;
+  posts: {
+    id: number;
+    title: string;
+    createdAt: string;
+  }[];
+  comments: {
+    id: number;
+    content: string;
+    createdAt: string;
+  }[];
 }
 export interface UserUpdate {
   username?: string;

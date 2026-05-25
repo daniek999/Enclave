@@ -5,11 +5,11 @@ import type { RegisterBody } from "../../types/auth.type";
 
 export function RegisterModal() {
   // Hooks
-  const { register, handleSubmit, reset } = useForm<RegisterBody>();
   const { register: registerAuth } = authApi();
+  const { register, handleSubmit, reset } = useForm<RegisterBody>();
 
   // Handlers
-  const onSubmit = async (data: RegisterBody) => {
+  async function onSubmitRegister(data: RegisterBody) {
     try {
       const response = await registerAuth(data);
       reset();
@@ -18,17 +18,17 @@ export function RegisterModal() {
     } catch (error: any) {
       alert(error.response?.data?.message ?? "Error al registrarse.");
     }
-  };
+  }
 
   // Renders
   return (
     <div className="modal fade" id="registerModal" tabIndex={-1}>
       <div className="modal-dialog modal-dialog-centered">
         <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="modal-content bg-depth border border-secondary text-light rounded-0"
+          onSubmit={handleSubmit(onSubmitRegister)}
+          className="modal-content gap-4 bg-depth border border-secondary text-light rounded-0 p-4"
         >
-          <div className="modal-header border-0">
+          <div className="modal-header border-0 p-0">
             <h5 className="modal-title">Registrarse</h5>
             <button
               type="button"
@@ -36,7 +36,7 @@ export function RegisterModal() {
               data-bs-dismiss="modal"
             />
           </div>
-          <div className="modal-body d-flex flex-column gap-4">
+          <div className="modal-body d-flex flex-column gap-4 p-0">
             {/* @username */}
             <input
               type="text"
@@ -58,7 +58,7 @@ export function RegisterModal() {
               recuperarla.
             </p>
           </div>
-          <div className="modal-footer border-0">
+          <div className="modal-footer border-0 p-0">
             <button
               type="button"
               className="btn btn-outline-danger btn-sm rounded-0"
