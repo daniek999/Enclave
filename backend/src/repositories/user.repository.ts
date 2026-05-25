@@ -52,9 +52,25 @@ export const userRepository = {
     };
   },
   readOneById: async (id: number) => {
-    return prisma.user.findUnique({
+    return await prisma.user.findUnique({
       where: { id },
       omit: { password: true },
+      include: {
+        posts: {
+          select: {
+            id: true,
+            title: true,
+            createdAt: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            content: true,
+            createdAt: true,
+          },
+        },
+      },
     });
   },
   createOne: async (body: UserRegisterDTO) => {
